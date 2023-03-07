@@ -21,15 +21,20 @@ function generatePassword(){
     // var includeNumbers = this.confirm("Should your password have numbers?");
     // var includeSymbols = this.confirm("Should your password have symbols?");
 
-    var passwordChoices = {
+    
+
+    function createPassword(passwordProps, password) {
+        var passwordProps = {
         numOfChars: window.prompt("How many characters should your password have?"),
         lower: window.confirm("Should your password have lowercase letters?"),
         upper: window.confirm("Should your password have uppercase letters?"),
         numbers: window.confirm("Should your password have numbers?"),
         symbols: window.confirm("Should your password have lowercase letters"),
         numOfTypes: 0,
-        numberFromEachArray:0,
-        addChars() {
+        //choicesDivByTypes: 0,
+        
+        //this method returns the character total divided by the number of types
+        getIterationLimit() {
             if (this.lower){
                 this.numOfTypes++;
             }
@@ -42,14 +47,47 @@ function generatePassword(){
             if (this.symbols) {
                 this.numOfTypes++;
             }
-        },
-        determineNumberFromEachArray(){
-            this.numberFromEachArray = this.numOfTypes/this.numOfChars;
-        },
-        addToArrayFirstTime(){
-            
+            return Math.floor(this.numOfChars / this.numOfTypes);
         }
     }
+        password = [];
+        var timesToIterate = passwordProps.getIterationLimit();
+        if (passwordProps.lower){ 
+            for (let i = 0; i <= timesToIterate; i++) {
+                password = password.concat(lowercase[Math.floor(Math.random) * lowercase.length])
+            }
+        };
+        if (passwordProps.upper){
+            for (let i = 0; i <= timesToIterate; i++) {
+                password = password.concat(uppercase[Math.floor(Math.random) * uppercase.length])
+            }
+        };
+        if (passwordProps.numbers){ 
+            for (let i = 0; i <= timesToIterate; i++) {
+                password = password.concat(numbers[Math.floor(Math.random) * numbers.length])
+            }
+        };
+        if (passwordProps.symbols) { 
+            for (let i = 0; i <= timesToIterate; i++) {
+                password = password.concat(symbols[Math.floor(Math.random) * symbols.length])
+            }
+        };
+        if (password.length < passwordProps.numOfChars){
+            timesToIterate = passwordProps.numOfChars - password.length;
+            for (let i = 0; i<= timesToIterate; i++) {
+                password = password.concat(lowercase[Math.floor(Math.random) * lowercase.length]);
+            }
+        }
+        return password;
+    }
+
+    passwordProps.numOfChars;
+    passwordProps.lower;
+    passwordProps.upper;
+    passwordProps.numbers;
+    passwordProps.symbols;
+    passwordProps.getIterationLimit();
+    createPassword();
     
     //this pushes the appropriate characters to an array of all possible characters
     //function addChars() {
@@ -73,7 +111,7 @@ function generatePassword(){
         //     };
     //};
     
-    console.log(charPool);
+    
 
     
     
