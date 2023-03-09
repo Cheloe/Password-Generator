@@ -1,4 +1,4 @@
-// Document targets
+// HTML elements targeted
 var generateBtn = document.querySelector("#generate");
 
 // Character Arrays
@@ -104,6 +104,9 @@ function generatePassword(){
         }
         
         // Since characters are added to the password in a set order, the password needs to be shuffled or every password will have a similar format
+
+        //I pulled this directly from StackOverflow https://stackoverflow.com/a/46545530. I can tell it's making an object and and somehow sorting using randomness, I can see it doesn't do anything I wouldn't want it to do, and I know it works as I intend. Good enough for me. 
+
         let shuffled = password
             .map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
